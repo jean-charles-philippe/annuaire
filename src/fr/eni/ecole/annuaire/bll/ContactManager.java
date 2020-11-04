@@ -24,4 +24,11 @@ public class ContactManager {
 		ContactDAO contactDAO = FactoryDAO.getContactDAO();
 		contactDAO.delete(email);
 	}
+
+	public boolean verifEmail(String email) {
+		if (email.contains("@")) {
+			return true;
+		}
+		return false;
+	}
 }

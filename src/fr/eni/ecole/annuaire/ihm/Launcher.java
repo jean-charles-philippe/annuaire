@@ -75,8 +75,16 @@ public class Launcher {
 		String nom = sc.nextLine();
 		System.out.println("Veuillez saisir un prenom:");
 		String prenom = sc.nextLine();
-		System.out.println("Veuillez saisir un email:");
-		String email = sc.nextLine();
+
+		String email;
+		boolean verif = false;
+		do {
+			System.out.println("Veuillez saisir un email:");
+			email = sc.nextLine();
+			ContactManager mnger = new ContactManager();
+			verif = mnger.verifEmail(email);
+		} while (!verif);
+		
 		System.out.println("Veuillez saisir un password:");
 		String password = sc.nextLine();
 		Utilisateur utilisateur = new Utilisateur(nom, prenom, email, password);
