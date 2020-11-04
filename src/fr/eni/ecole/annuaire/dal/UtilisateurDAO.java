@@ -22,9 +22,9 @@ public class UtilisateurDAO {
 	
 
 	public void insert(Utilisateur utilisateur) {
-		
+		Connection cnx = null;
 		try {
-			Connection cnx = getConnection();
+			cnx = getConnection();
 			PreparedStatement pstmt = cnx.prepareStatement("INSERT INTO utilisateur VALUES(?,?,?,?)");
 			pstmt.setString(1, utilisateur.getNom().toUpperCase());
 			pstmt.setString(2, utilisateur.getPrenom());
@@ -33,10 +33,16 @@ public class UtilisateurDAO {
 			
 			pstmt.executeUpdate();
 			System.out.printf("\nVous venez de saisir le contact : %s %s %s%n", utilisateur.getNom(),utilisateur.getPrenom(),utilisateur.getEmail() );
-			cnx.close();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 	
@@ -45,15 +51,16 @@ public class UtilisateurDAO {
 		Utilisateur utilisateur;
 		List<Utilisateur> listUtilisateur = new ArrayList<>();
 		ResultSet rs = null;
+		Connection cnx = null;
 		try {
-			Connection cnx = getConnection();
+			cnx = getConnection();
 			PreparedStatement pstmt = cnx.prepareStatement("SELECT nom, prenom, email FROM utilisateur");
 			//pstmt.setString(1, "nom" );
 			//pstmt.setString(2, "prenom");
 			//pstmt.setString(3, "email");
 			
 			rs = pstmt.executeQuery();
-			cnx.close();
+
 			while (rs.next()) {
 				utilisateur = new Utilisateur(rs.getString(1), rs.getString(2), rs.getString(3), "*******" );
 				listUtilisateur.add(utilisateur);
@@ -62,15 +69,21 @@ public class UtilisateurDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return listUtilisateur;
 	}
 	
 	public void delete(String email) {
 		ResultSet rs = null;
-
+		Connection cnx = null;
 		try {
-			Connection cnx = getConnection();
+			cnx = getConnection();
 			PreparedStatement pstmt1 = cnx.prepareStatement("SELECT nom, prenom, email FROM utilisateur WHERE email=?");
 			pstmt1.setString(1, email);
 			rs = pstmt1.executeQuery();
@@ -81,9 +94,15 @@ public class UtilisateurDAO {
 			if (rs.next()) {
 				System.out.printf("Vous avez supprimé l'utilisateur %s %s.%n", rs.getString(1), rs.getString(2) );
 			}
-			cnx.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
