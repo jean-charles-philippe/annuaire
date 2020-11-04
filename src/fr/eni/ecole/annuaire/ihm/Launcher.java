@@ -3,17 +3,16 @@ package fr.eni.ecole.annuaire.ihm;
 import java.util.List;
 import java.util.Scanner;
 
+import fr.eni.ecole.annuaire.bll.ContactManager;
 import fr.eni.ecole.annuaire.bll.bo.Utilisateur;
-import fr.eni.ecole.annuaire.dal.ContactDAO;
-import fr.eni.ecole.annuaire.dal.FactoryDAO;
-import fr.eni.ecole.annuaire.dal.UtilisateurDAOjdbcImpl;
+
 
 public class Launcher {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Integer numApp = 1;
-		ContactDAO contactDAO = FactoryDAO.getContactDAO();
+		ContactManager mnger = new ContactManager();
 		System.out.println();
 		menu();
 		numApp = sc.nextInt();
@@ -27,13 +26,13 @@ public class Launcher {
 				// 1 Ajouter un utilisateur , saisir un nom, prenom, mail, mdp puis transfert à
 				// la bdd
 				Utilisateur utilisateur = saisieUtilisateur(sc);
-				contactDAO.insert(utilisateur);
+				mnger.insert(utilisateur);
 				break;
 
 			case 2:
 				// 2 Supprimer un utilisateur par le mail et supprime en bdd
 				String email = saisirEmail(sc);
-				contactDAO.delete(email);
+				mnger.delete(email);
 				break;
 
 			case 3:
@@ -59,8 +58,8 @@ public class Launcher {
 	private static List<Utilisateur> findAll() {
 		List<Utilisateur> listUtilisateur;
 		System.out.println("\nAFFICHAGE GLOBAL DE L'ANNUAIRE:");
-		ContactDAO contactDAO = new UtilisateurDAOjdbcImpl();
-		listUtilisateur = contactDAO.vueAnnuaire();
+		ContactManager mnger = new ContactManager();
+		listUtilisateur = mnger.vueAnnuaire();
 		return listUtilisateur;
 	}
 
