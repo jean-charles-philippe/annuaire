@@ -10,7 +10,7 @@ import java.util.List;
 
 import fr.eni.ecole.annuaire.bll.bo.Utilisateur;
 
-public class UtilisateurDAO {
+public class UtilisateurDAOjdbcImpl implements ContactDAO {
 	
 	static {
 		try {
@@ -47,7 +47,7 @@ public class UtilisateurDAO {
 	}
 	
 
-	public static List<Utilisateur> vueAnnuaire() {
+	public List<Utilisateur> vueAnnuaire() {
 		Utilisateur utilisateur;
 		List<Utilisateur> listUtilisateur = new ArrayList<>();
 		ResultSet rs = null;
