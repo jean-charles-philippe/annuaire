@@ -1,15 +1,12 @@
 package fr.eni.ecole.annuaire.bll.bo;
 
-import java.text.DateFormat;
-import java.util.Date;
-
-
 public class Utilisateur {
 	private String nom;
 	private String prenom;
 	private String email;
 	private String password;
 	private String dateCreation;
+
 	public Utilisateur() {
 	}
 
@@ -23,23 +20,18 @@ public class Utilisateur {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
-		this.password = password; 
-		
+		this.password = password;
 
 	}
-	
-	
 
-/*	*//**
-	 * @param nom
-	 * @param prenom
-	 * @param email
-	 *//*
-	public Utilisateur(String nom, String prenom, String email) {
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-	}*/
+	/*	*//**
+			 * @param nom
+			 * @param prenom
+			 * @param email
+			 *//*
+				 * public Utilisateur(String nom, String prenom, String email) { this.nom = nom;
+				 * this.prenom = prenom; this.email = email; }
+				 */
 
 	/**
 	 * @return the nom
@@ -70,28 +62,32 @@ public class Utilisateur {
 	}
 
 	/**
-	 * @param nom the nom to set
+	 * @param nom
+	 *            the nom to set
 	 */
 	public final void setNom(String nom) {
 		this.nom = nom;
 	}
 
 	/**
-	 * @param prenom the prenom to set
+	 * @param prenom
+	 *            the prenom to set
 	 */
 	public final void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public final void setEmail(String email) {
 		this.email = email;
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *            the password to set
 	 */
 	public final void setPassword(String password) {
 		this.password = password;
@@ -104,16 +100,17 @@ public class Utilisateur {
 		return dateCreation;
 	}
 
-
-
 	/**
-	 * @param dateCreation the dateCreation to set
+	 * @param dateCreation
+	 *            the dateCreation to set
 	 */
 	public final void setDateCreation(String dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -121,8 +118,5 @@ public class Utilisateur {
 		return "Utilisateur [nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password=" + password
 				+ ", dateCreation=" + dateCreation + "]";
 	}
-	
-	
-	
-	
+
 }
