@@ -25,14 +25,14 @@ public class UtilisateurDAOjdbcImpl implements ContactDAO {
 		Connection cnx = null;
 		try {
 			cnx = getConnection();
-			PreparedStatement pstmt = cnx.prepareStatement("INSERT INTO utilisateur VALUES(?,?,?,?)");
-			pstmt.setString(1, utilisateur.getNom().toUpperCase());
+			PreparedStatement pstmt = cnx.prepareStatement("INSERT INTO utilisateur VALUES(?,?,?,?,?)");
+			pstmt.setString(1, utilisateur.getNom());
 			pstmt.setString(2, utilisateur.getPrenom());
 			pstmt.setString(3, utilisateur.getEmail());
 			pstmt.setString(4, utilisateur.getPassword());
-			
+			pstmt.setString(5, utilisateur.getDateCreation());
 			pstmt.executeUpdate();
-			System.out.printf("\nVous venez de saisir le contact : %s %s %s%n", utilisateur.getNom(),utilisateur.getPrenom(),utilisateur.getEmail() );
+			System.out.printf("\nVous venez de saisir le contact : %s %s %s %s%n", utilisateur.getNom(),utilisateur.getPrenom(),utilisateur.getEmail(),utilisateur.getDateCreation() );
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -54,15 +54,14 @@ public class UtilisateurDAOjdbcImpl implements ContactDAO {
 		Connection cnx = null;
 		try {
 			cnx = getConnection();
-			PreparedStatement pstmt = cnx.prepareStatement("SELECT nom, prenom, email FROM utilisateur");
-			//pstmt.setString(1, "nom" );
-			//pstmt.setString(2, "prenom");
-			//pstmt.setString(3, "email");
+			PreparedStatement pstmt = cnx.prepareStatement("SELECT nom, prenom, email, dateCreation FROM utilisateur");
+
 			
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				utilisateur = new Utilisateur(rs.getString(1), rs.getString(2), rs.getString(3), "*******" );
+				utilisateur.setDateCreation(rs.getString(4));
 				listUtilisateur.add(utilisateur);
 			}
 

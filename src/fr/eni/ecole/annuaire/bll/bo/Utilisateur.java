@@ -1,11 +1,15 @@
 package fr.eni.ecole.annuaire.bll.bo;
 
+import java.text.DateFormat;
+import java.util.Date;
+
+
 public class Utilisateur {
 	private String nom;
 	private String prenom;
 	private String email;
 	private String password;
-	
+	private String dateCreation;
 	public Utilisateur() {
 	}
 
@@ -19,21 +23,23 @@ public class Utilisateur {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
-		this.password = password;
+		this.password = password; 
+		
+
 	}
 	
 	
 
-	/**
+/*	*//**
 	 * @param nom
 	 * @param prenom
 	 * @param email
-	 */
+	 *//*
 	public Utilisateur(String nom, String prenom, String email) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
-	}
+	}*/
 
 	/**
 	 * @return the nom
@@ -91,12 +97,29 @@ public class Utilisateur {
 		this.password = password;
 	}
 
+	/**
+	 * @return the dateCreation
+	 */
+	public final String getDateCreation() {
+		return dateCreation;
+	}
+
+
+
+	/**
+	 * @param dateCreation the dateCreation to set
+	 */
+	public final void setDateCreation(String dateCreation) {
+		this.dateCreation = dateCreation;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Utilisateur [nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password=" + password + "]";
+		return "Utilisateur [nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password=" + password
+				+ ", dateCreation=" + dateCreation + "]";
 	}
 	
 	

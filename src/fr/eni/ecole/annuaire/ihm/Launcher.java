@@ -37,7 +37,8 @@ public class Launcher {
 
 			case 3:
 				// 3 faire un affichade total de l'annuaire
-				List<Utilisateur> listUtilisateur = findAll();
+				List<Utilisateur> listUtilisateur;
+				listUtilisateur = mnger.vueAnnuaire();
 				afficherContacts(listUtilisateur);
 				break;
 
@@ -55,13 +56,13 @@ public class Launcher {
 
 	}
 
-	private static List<Utilisateur> findAll() {
+/*	private static List<Utilisateur> findAll() {
 		List<Utilisateur> listUtilisateur;
 		System.out.println("\nAFFICHAGE GLOBAL DE L'ANNUAIRE:");
-		ContactManager mnger = new ContactManager();
+		3ContactManager mnger = new ContactManager();
 		listUtilisateur = mnger.vueAnnuaire();
 		return listUtilisateur;
-	}
+	}*/
 
 	private static String saisirEmail(Scanner sc) {
 		System.out.println("Veuillez saisir le mail de l'utilisateur à supprimer:");
@@ -70,6 +71,7 @@ public class Launcher {
 	}
 
 	private static Utilisateur saisieUtilisateur(Scanner sc) {
+		ContactManager mnger = new ContactManager();
 		System.out.println("\nAJOUT D'UN CONTACT:");
 		System.out.println("Veuillez saisir un nom:");
 		String nom = sc.nextLine();
@@ -81,12 +83,18 @@ public class Launcher {
 		do {
 			System.out.println("Veuillez saisir un email:");
 			email = sc.nextLine();
-			ContactManager mnger = new ContactManager();
 			verif = mnger.verifEmail(email);
 		} while (!verif);
 		
-		System.out.println("Veuillez saisir un password:");
-		String password = sc.nextLine();
+		String password;
+		verif = false;
+		do {
+			System.out.println("Veuillez saisir un password:");
+			password = sc.nextLine();
+
+			verif = mnger.verifPassword(password);
+		} while (!verif);
+		
 		Utilisateur utilisateur = new Utilisateur(nom, prenom, email, password);
 		return utilisateur;
 	}

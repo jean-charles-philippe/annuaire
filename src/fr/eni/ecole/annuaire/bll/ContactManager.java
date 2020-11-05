@@ -1,6 +1,10 @@
 package fr.eni.ecole.annuaire.bll;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import fr.eni.ecole.annuaire.bll.bo.Utilisateur;
 import fr.eni.ecole.annuaire.dal.ContactDAO;
@@ -10,6 +14,8 @@ public class ContactManager {
 
 	public void insert(Utilisateur utilisateur) {
 		ContactDAO contactDAO = FactoryDAO.getContactDAO();
+		utilisateur.setNom(utilisateur.getNom().toUpperCase());
+		utilisateur.setDateCreation(DateFormat.getDateInstance(DateFormat.SHORT).format(new Date())); 
 		contactDAO.insert(utilisateur);
 	}
 	
@@ -31,4 +37,18 @@ public class ContactManager {
 		}
 		return false;
 	}
+
+	public boolean verifPassword(String password) {
+        Pattern patternNb = Pattern.compile("(\\d)");
+        Matcher matcherNb = patternNb.matcher(password);
+        Pattern patternMaj = Pattern.compile("([A-Z])");
+        Matcher matcherMaj = patternMaj.matcher(password);
+        
+		if (matcherNb.find() == true && matcherMaj.find() == true) {
+			return true;
+		}
+		return false;
+	}
+
+
 }
