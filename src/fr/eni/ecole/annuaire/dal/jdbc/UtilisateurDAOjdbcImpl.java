@@ -1,7 +1,6 @@
 package fr.eni.ecole.annuaire.dal.jdbc;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,22 +9,13 @@ import java.util.List;
 
 import fr.eni.ecole.annuaire.bll.bo.Utilisateur;
 import fr.eni.ecole.annuaire.dal.ContactDAO;
-import fr.eni.ecole.annuaire.dal.Settings;
 
 public class UtilisateurDAOjdbcImpl implements ContactDAO {
-
-	static {
-		try {
-			Class.forName(Settings.getProperty("driverjdbc"));
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void insert(Utilisateur utilisateur) {
 		Connection cnx = null;
 		try {
-			cnx = getConnection();
+			cnx = JdbcTools.getConnection();
 			PreparedStatement pstmt = cnx.prepareStatement("INSERT INTO utilisateur VALUES(?,?,?,?,?)");
 			pstmt.setString(1, utilisateur.getNom());
 			pstmt.setString(2, utilisateur.getPrenom());
@@ -39,11 +29,7 @@ public class UtilisateurDAOjdbcImpl implements ContactDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				cnx.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			JdbcTools.closeConnection();
 		}
 
 	}
@@ -54,7 +40,7 @@ public class UtilisateurDAOjdbcImpl implements ContactDAO {
 		ResultSet rs = null;
 		Connection cnx = null;
 		try {
-			cnx = getConnection();
+			cnx = JdbcTools.getConnection();
 			PreparedStatement pstmt = cnx.prepareStatement("SELECT nom, prenom, email, dateCreation FROM utilisateur");
 
 			rs = pstmt.executeQuery();
@@ -68,11 +54,7 @@ public class UtilisateurDAOjdbcImpl implements ContactDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				cnx.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			JdbcTools.closeConnection();
 		}
 		return listUtilisateur;
 	}
@@ -81,7 +63,7 @@ public class UtilisateurDAOjdbcImpl implements ContactDAO {
 		ResultSet rs = null;
 		Connection cnx = null;
 		try {
-			cnx = getConnection();
+			cnx = JdbcTools.getConnection();
 			PreparedStatement pstmt1 = cnx.prepareStatement("SELECT nom, prenom, email FROM utilisateur WHERE email=?");
 			pstmt1.setString(1, email);
 			rs = pstmt1.executeQuery();
@@ -96,19 +78,8 @@ public class UtilisateurDAOjdbcImpl implements ContactDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				cnx.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			JdbcTools.closeConnection();
 		}
-	}
-
-	public static Connection getConnection() throws SQLException {
-		Connection connection = null;
-		connection = DriverManager.getConnection(Settings.getProperty("url"), Settings.getProperty("user"),
-				Settings.getProperty("password"));
-		return connection;
 	}
 
 }

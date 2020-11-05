@@ -55,13 +55,6 @@ public class Launcher {
 
 	}
 
-	/*
-	 * private static List<Utilisateur> findAll() { List<Utilisateur>
-	 * listUtilisateur; System.out.println("\nAFFICHAGE GLOBAL DE L'ANNUAIRE:");
-	 * 3ContactManager mnger = new ContactManager(); listUtilisateur =
-	 * mnger.vueAnnuaire(); return listUtilisateur; }
-	 */
-
 	private static String saisirEmail(Scanner sc) {
 		System.out.println("Veuillez saisir le mail de l'utilisateur à supprimer:");
 		String email = sc.nextLine();
