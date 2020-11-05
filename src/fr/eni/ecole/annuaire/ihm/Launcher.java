@@ -6,13 +6,12 @@ import java.util.Scanner;
 import fr.eni.ecole.annuaire.bll.ContactManager;
 import fr.eni.ecole.annuaire.bll.bo.Utilisateur;
 
-
 public class Launcher {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Integer numApp = 1;
-		ContactManager mnger = new ContactManager();
+		ContactManager mnger = ContactManager.getInstance();
 		System.out.println();
 		menu();
 		numApp = sc.nextInt();
@@ -56,13 +55,12 @@ public class Launcher {
 
 	}
 
-/*	private static List<Utilisateur> findAll() {
-		List<Utilisateur> listUtilisateur;
-		System.out.println("\nAFFICHAGE GLOBAL DE L'ANNUAIRE:");
-		3ContactManager mnger = new ContactManager();
-		listUtilisateur = mnger.vueAnnuaire();
-		return listUtilisateur;
-	}*/
+	/*
+	 * private static List<Utilisateur> findAll() { List<Utilisateur>
+	 * listUtilisateur; System.out.println("\nAFFICHAGE GLOBAL DE L'ANNUAIRE:");
+	 * 3ContactManager mnger = new ContactManager(); listUtilisateur =
+	 * mnger.vueAnnuaire(); return listUtilisateur; }
+	 */
 
 	private static String saisirEmail(Scanner sc) {
 		System.out.println("Veuillez saisir le mail de l'utilisateur à supprimer:");
@@ -71,7 +69,7 @@ public class Launcher {
 	}
 
 	private static Utilisateur saisieUtilisateur(Scanner sc) {
-		ContactManager mnger = new ContactManager();
+		ContactManager mnger = ContactManager.getInstance();
 		System.out.println("\nAJOUT D'UN CONTACT:");
 		System.out.println("Veuillez saisir un nom:");
 		String nom = sc.nextLine();
@@ -85,7 +83,7 @@ public class Launcher {
 			email = sc.nextLine();
 			verif = mnger.verifEmail(email);
 		} while (!verif);
-		
+
 		String password;
 		verif = false;
 		do {
@@ -94,7 +92,7 @@ public class Launcher {
 
 			verif = mnger.verifPassword(password);
 		} while (!verif);
-		
+
 		Utilisateur utilisateur = new Utilisateur(nom, prenom, email, password);
 		return utilisateur;
 	}

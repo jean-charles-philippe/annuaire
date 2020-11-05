@@ -12,20 +12,32 @@ import fr.eni.ecole.annuaire.dal.FactoryDAO;
 
 public class ContactManager {
 
+	public static ContactManager instance = new ContactManager();
+
+	private ContactManager() {
+	}
+
+	public static ContactManager getInstance() {
+		if (instance == null) {
+			instance = new ContactManager();
+		}
+		return instance;
+	}
+
 	public void insert(Utilisateur utilisateur) {
 		ContactDAO contactDAO = FactoryDAO.getContactDAO();
 		utilisateur.setNom(utilisateur.getNom().toUpperCase());
-		utilisateur.setDateCreation(DateFormat.getDateInstance(DateFormat.SHORT).format(new Date())); 
+		utilisateur.setDateCreation(DateFormat.getDateInstance(DateFormat.SHORT).format(new Date()));
 		contactDAO.insert(utilisateur);
 	}
-	
+
 	public List<Utilisateur> vueAnnuaire() {
 		List<Utilisateur> listUtilisateur;
 		ContactDAO contactDAO = FactoryDAO.getContactDAO();
 		listUtilisateur = contactDAO.vueAnnuaire();
 		return listUtilisateur;
 	}
-	
+
 	public void delete(String email) {
 		ContactDAO contactDAO = FactoryDAO.getContactDAO();
 		contactDAO.delete(email);
@@ -39,16 +51,15 @@ public class ContactManager {
 	}
 
 	public boolean verifPassword(String password) {
-        Pattern patternNb = Pattern.compile("(\\d)");
-        Matcher matcherNb = patternNb.matcher(password);
-        Pattern patternMaj = Pattern.compile("([A-Z])");
-        Matcher matcherMaj = patternMaj.matcher(password);
-        
+		Pattern patternNb = Pattern.compile("(\\d)");
+		Matcher matcherNb = patternNb.matcher(password);
+		Pattern patternMaj = Pattern.compile("([A-Z])");
+		Matcher matcherMaj = patternMaj.matcher(password);
+
 		if (matcherNb.find() == true && matcherMaj.find() == true) {
 			return true;
 		}
 		return false;
 	}
-
 
 }
