@@ -1,4 +1,4 @@
-package fr.eni.ecole.annuaire.dal;
+package fr.eni.ecole.annuaire.dal.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ecole.annuaire.bll.bo.Utilisateur;
+import fr.eni.ecole.annuaire.dal.ContactDAO;
+import fr.eni.ecole.annuaire.dal.Settings;
 
 public class UtilisateurDAOjdbcImpl implements ContactDAO {
 
